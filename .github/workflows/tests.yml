@@ -1,23 +1,24 @@
 name: Pruebas UI
+
 on:
   push:
   pull_request:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04           # versión fija del servidor
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: 21
+          java-version: '21'
           cache: maven
       - name: Correr las pruebas
         run: mvn -B test
       - name: Guardar reportes
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: reportes-surefire
           path: target/surefire-reports
